@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <main className="p-6 bg-gradient-to-br from-gray-100 via-white to-gray-200 min-h-screen" >
+      <main className="min-h-screen bg-beige text-texto p-6" >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
