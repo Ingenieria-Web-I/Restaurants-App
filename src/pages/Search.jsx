@@ -1,7 +1,6 @@
 import { useState } from "react";
-import restaurants from "../data/restaurants";
 
-function Search() {
+function Search({ restaurants }) {
   const [query, setQuery] = useState("");
 
   const filteredRestaurants = restaurants.filter((rest) =>
@@ -25,15 +24,8 @@ function Search() {
           {filteredRestaurants.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {filteredRestaurants.map((rest) => (
-                <div
-                  key={rest.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden"
-                >
-                  <img
-                    src={rest.image}
-                    alt={rest.name}
-                    className="h-40 w-full object-cover"
-                  />
+                <div key={rest.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img src={rest.image} alt={rest.name} className="h-40 w-full object-cover" />
                   <div className="p-4">
                     <h2 className="text-xl font-bold text-gray-700">{rest.name}</h2>
                     <p className="text-gray-500 text-sm">{rest.description}</p>
