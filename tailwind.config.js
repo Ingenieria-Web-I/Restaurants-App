@@ -2,11 +2,17 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        fondo: "#F5F5F5",
+        primario: "#222831",
+        secundario: "#76ABAE",
+        texto: "#31363F",
+      },
+    },
   },
   plugins: [],
 }
-// tailwind.config.js
