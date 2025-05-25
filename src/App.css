@@ -1,3 +1,19 @@
-#root {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
+body, p, span, a {
+  font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+}
+button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+footer {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
 }
