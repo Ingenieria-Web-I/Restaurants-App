@@ -32,7 +32,7 @@ function Footer() {
           </a>
         </div>
 
-        <p className="opacity-60">© {new Date().getFullYear()} Restaurants App</p>
+        <p className="opacity-60">© {new Date().getFullYear()} RestaurantsApp</p>
       </div>
     </footer>
   );
