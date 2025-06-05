@@ -40,7 +40,6 @@ function Search() {
         />
       </div>
 
-      {/* Mostrar resultados solo si hay texto en el input */}
       {query.trim() !== "" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filtered.length > 0 ? (

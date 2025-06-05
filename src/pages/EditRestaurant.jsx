@@ -15,6 +15,8 @@ function EditRestaurant() {
     image: "",
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
@@ -29,6 +31,8 @@ function EditRestaurant() {
       } catch (error) {
         console.error("Error al obtener restaurante:", error);
         Swal.fire("Error", "No se pudo cargar el restaurante", "error");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -60,6 +64,14 @@ function EditRestaurant() {
       Swal.fire("Error", "No se pudo guardar el restaurante", "error");
     }
   };
+  
+  if (isLoading) {
+    return (
+      <div className="text-center mt-20 text-xl text-primario font-semibold">
+        Cargando restaurante...
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto p-4">
