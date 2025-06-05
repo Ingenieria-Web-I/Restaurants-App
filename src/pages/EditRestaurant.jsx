@@ -1,9 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { restaurantService } from "../services/firebaseRestaurantServices";
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
 
 function EditRestaurant() {
   const { id } = useParams();
@@ -20,22 +19,15 @@ function EditRestaurant() {
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
-        const docRef = doc(db, "restaurants", id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setForm(docSnap.data());
-        } else {
-          Swal.fire("Error", "Restaurante no encontrado", "error");
-          navigate("/");
-        }
+        const data = await restaurantService.getById(id);
+        setForm(data);
       } catch (error) {
-        console.error("Error al obtener restaurante:", error);
-        Swal.fire("Error", "No se pudo cargar el restaurante", "error");
+        Swal.fire("Error", "Restaurante no encontrado", "error");
+        navigate("/");
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchRestaurant();
   }, [id, navigate]);
 
@@ -45,19 +37,9 @@ function EditRestaurant() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const docRef = doc(db, "restaurants", id);
-      await updateDoc(docRef, form);
-
-      Swal.fire({
-        title: "Actualizado",
-        text: "El restaurante ha sido modificado correctamente",
-        icon: "success",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-
+      await restaurantService.update(id, form);
+      Swal.fire({ title: "Actualizado", text: "El restaurante ha sido modificado correctamente", icon: "success", timer: 2000, showConfirmButton: false });
       navigate("/");
     } catch (error) {
       console.error("Error al actualizar:", error);

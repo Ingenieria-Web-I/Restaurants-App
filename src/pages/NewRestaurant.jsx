@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { restaurantService } from "../services/firebaseRestaurantServices";
+
 
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -37,9 +37,8 @@ function NewRestaurant() {
       return;
     }
 
-    try {
-      await addDoc(collection(db, "restaurants"), restaurant);
-
+  try {
+      await restaurantService.create(restaurant);
       Swal.fire({
         title: "¡Restaurante agregado!",
         icon: "success",

@@ -1,27 +1,24 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+
+
 
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { restaurantService } from "../services/firebaseRestaurantServices";
 
 import { Link } from "react-router-dom";
 
 function Home() {
   const [restaurants, setRestaurants] = useState([]);
 
-  const fetchRestaurants = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "restaurants"));
-      const data = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setRestaurants(data);
-    } catch (error) {
-      console.error("Error al obtener restaurantes:", error);
-    }
-  };
+const fetchRestaurants = async () => {
+  try {
+    const data = await restaurantService.getAll();
+    setRestaurants(data);
+  } catch (error) {
+    console.error("Error al obtener restaurantes:", error);
+  }
+};
 
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
@@ -46,7 +43,7 @@ function Home() {
 
     if (confirm.isConfirmed) {
       try {
-        await deleteDoc(doc(db, "restaurants", id));
+        await restaurantService.remove(id);
         setRestaurants(prev => prev.filter(rest => rest.id !== id));
         Swal.fire({
           title: "Eliminado",

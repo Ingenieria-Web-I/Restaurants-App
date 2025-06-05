@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { restaurantService } from "../services/firebaseRestaurantServices";
 
 function Search() {
   const [query, setQuery] = useState("");
@@ -9,17 +8,12 @@ function Search() {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "restaurants"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const data = await restaurantService.getAll();
         setRestaurants(data);
       } catch (error) {
         console.error("Error al obtener restaurantes:", error);
       }
     };
-
     fetchRestaurants();
   }, []);
 
