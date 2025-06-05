@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import NewRestaurant from "./pages/NewRestaurant";
+import EditRestaurant from "./pages/EditRestaurant";
 import defaultRestaurants from "./data/restaurants";
 
 function App() {
@@ -54,12 +55,11 @@ function App() {
        
         <main className="flex-grow p-6">
           <Routes>
-            <Route
-              path="/"
-              element={<Home restaurants={restaurants} onDelete={handleDeleteRestaurant} onReset={handleReset} />}
-            />
+            <Route path="/" element={<Home restaurants={restaurants} onDelete={handleDeleteRestaurant} onReset={handleReset} />} />
             <Route path="/search" element={<Search restaurants={restaurants} />} />
             <Route path="/new" element={<NewRestaurant setRestaurants={setRestaurants} />} />
+            <Route path="/edit/:id" element={<EditRestaurant restaurants={restaurants} setRestaurants={setRestaurants} />}
+/>
           </Routes>
         </main>
         <Footer />
