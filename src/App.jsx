@@ -58,8 +58,7 @@ function App() {
             <Route path="/" element={<Home restaurants={restaurants} onDelete={handleDeleteRestaurant} onReset={handleReset} />} />
             <Route path="/search" element={<Search restaurants={restaurants} />} />
             <Route path="/new" element={<NewRestaurant setRestaurants={setRestaurants} />} />
-            <Route path="/edit/:id" element={<EditRestaurant restaurants={restaurants} setRestaurants={setRestaurants} />}
-/>
+            <Route path="/edit/:id" element={<EditRestaurant restaurants={restaurants} setRestaurants={setRestaurants} />} />
           </Routes>
         </main>
         <Footer />
