@@ -1,30 +1,24 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { fetchRestaurants } from "../services/restaurantService";
 
 function Search() {
   const [query, setQuery] = useState("");
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    const fetchRestaurants = async () => {
+    const load = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "restaurants"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const data = await fetchRestaurants();
         setRestaurants(data);
       } catch (error) {
         console.error("Error al obtener restaurantes:", error);
       }
     };
-
-    fetchRestaurants();
+    load();
   }, []);
 
-  const filtered = restaurants.filter((rest) =>
-    rest.name.toLowerCase().includes(query.toLowerCase())
+  const filtered = restaurants.filter((r) =>
+    r.name.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
@@ -48,11 +42,7 @@ function Search() {
                 key={rest.id}
                 className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden"
               >
-                <img
-                  src={rest.image}
-                  alt={rest.name}
-                  className="h-48 w-full object-cover"
-                />
+                <img src={rest.image} alt={rest.name} className="h-48 w-full object-cover" />
                 <div className="p-4">
                   <h3 className="text-xl font-bold text-texto mb-2">{rest.name}</h3>
                   <p className="text-secundario text-sm mb-1">{rest.description}</p>
